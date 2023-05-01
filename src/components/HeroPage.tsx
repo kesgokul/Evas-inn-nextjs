@@ -2,6 +2,8 @@
 import { delay, motion } from "framer-motion";
 import { useState } from "react";
 import { heroDataType } from "@/utils/hero-data";
+import Image from "next/image";
+import "../app/globals.css";
 
 const children = {
   hidden: {
@@ -26,13 +28,22 @@ export default function HeroPage({ title, sub, desc, img }: heroDataType) {
   }
   return (
     <main
-      className={`px-2 md:px-12 min-h-screen max-w-full flex flex-wrap justify-between items-center bg-${img} bg-cover bg-center lg:bg-right-bottom snap-start shrink-0`}
+      className={`px-2 md:px-12 min-h-screen max-w-full flex flex-wrap justify-between items-center lg:bg-right-bottom snap-start shrink-0 relative z-0`}
     >
+      <Image
+        className="heroImg"
+        src={img}
+        alt="dog running"
+        fill
+        loading="lazy"
+        style={{ objectFit: "cover", objectPosition: "center" }}
+      />
       <motion.div
         initial={"hidden"}
         whileInView={"show"}
+        viewport={{ once: true }}
         transition={{ staggerChildren: 0.5 }}
-        className=" w-full max-w-md shrink-0  flex flex-col gap-4"
+        className=" w-full max-w-md shrink-0  flex flex-col gap-4 relative lg:ml-20 "
       >
         <motion.h1
           variants={children}
@@ -51,7 +62,7 @@ export default function HeroPage({ title, sub, desc, img }: heroDataType) {
         </motion.p>
         <motion.button
           variants={children}
-          className=" py-3 px-10 bg-gray-50 text-gray-600 self-start"
+          className=" py-3 px-10 bg-gray-50 text-gray-600 self-start hover:bg-yellow-500 transition-colors duration-200"
         >
           Board now
         </motion.button>
